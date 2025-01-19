@@ -1,8 +1,9 @@
 # Generatore di Indirizzi Bitcoin (P2PKH)
 
-Questo programma consente di generare una chiave privata casuale, la relativa chiave pubblica e l'indirizzo P2PKH e salvare le informazioni in formato JSON. Include un'interfaccia grafica intuitiva per selezionare la rete (Mainnet o Testnet), il formato della chiave (compressa o non compressa), e un nome per il wallet.
+Questo repository contiene due script Python che consentono di generare chiavi Bitcoin (privata e pubblica) e un indirizzo P2PKH. Lo script mainGUI.py hq un'interfaccia grafica (GUI), mentre l'altro (mainNoGUI.py) funziona interamente da riga di comando.
 
 ## Funzionalità
+Entrambi gli script offrono:
 
 - **Generazione di chiavi private:** Utilizzando una sorgente di numeri casuali sicura ad alta entropia.
 - **Conversione WIF (Wallet Import Format):** Supporta sia chiavi compresse che non compresse (compatibilità con Electrum).
@@ -12,12 +13,19 @@ Questo programma consente di generare una chiave privata casuale, la relativa ch
 
 ## Requisiti
 
-- Python 3.8 o superiore.
-- Librerie Python:
-  - `tkinter` (per l'interfaccia grafica, incluso nativamente in Python).
-  - `ecdsa` (per le firme crittografiche).
-  - `base58` (per l'encoding Base58).
+- **Python**: Versione 3.8 o superiore.
+- **Librerie Python**:
+  - `ecdsa`: Per le firme crittografiche.
+  - `base58`: Per la codifica Base58.
+  - `tkinter`: Necessario solo per la versione GUI.
 - Sistema operativo: Linux.
+
+## Struttura del progetto
+
+- mainGUI.py: Script con interfaccia grafica (GUI).
+- mainNoGUI.py: Script senza interfaccia grafica, eseguibile da riga di comando.
+- requirements.txt: Dipendenze necessarie.
+documentation/: Documentazione dettagliata sull'algoritmo e sul formato dei dati.
 
 ## Installazione
 
@@ -50,31 +58,45 @@ Nota: Assicurati di avere tkinter installato. Su Linux/Debian, puoi installarlo 
 sudo apt install python3-tk
 ```
 
-### 4. Esegui il programma
-Avvia il programma con il seguente comando:
+## Utilizzo
+### Script con GUI
 
+Avvia lo script:
 ```bash
-python main.py
+python mainGUI.py
 ```
 
-## Come usare il programma
+Interagisci con l'interfaccia:
+- Seleziona la rete (Mainnet o Testnet).
+- Scegli il formato della chiave pubblica (compressa o non compressa).
+- Inserisci un nome per il wallet.
+- Premi "Genera Chiavi" per creare chiavi e indirizzo.
+- Premi "Salva i dati" per esportare le informazioni in un file JSON.
 
-1. Seleziona la rete:
-   - Mainnet: Per creare indirizzi Bitcoin sulla rete principale.
-   - Testnet: Per creare indirizzi sulla rete di test.
+### Script senza GUI (CLI)
+Avvia lo script:
 
-2. Scegli il formato della chiave pubblica:
-   - Compressa: (Più breve, standard moderno).
-   - Non compressa: (Legacy, più lunga).
+```bash
+python mainNoGUI.py
+```
 
-3. Inserisci il nome del wallet:
-   Il nome verrà usato come nome del file JSON per salvare le chiavi e l'indirizzo.
+Segui le istruzioni fornite per:
+- Selezionare la rete.
+- Scegliere il formato della chiave pubblica.
+- Generare e visualizzare chiavi e indirizzo.
+- Salvare i risultati in un file JSON.
 
-4. Genera le chiavi:
-   Premi il pulsante "Genera Chiavi" per generare chiavi e indirizzi Bitcoin.
+## Struttura del file JSON
+Il file JSON generato conterrà i seguenti campi:
 
-5. Salva i dati:
-   Premi il pulsante "Salva i dati" per esportare le chiavi e l'indirizzo in un file JSON.
+```bash
+{
+    "private_key_hex": "Hexadecimal format of the private key",
+    "private_key_wif": "Private key in WIF format",
+    "public_key_hex": "Hexadecimal format of the public key",
+    "address": "Generated Bitcoin address (P2PKH)"
+}
+```
 
 ## Documentazione tecnica
 Il repository include un file .tex e il corrispondente PDF che spiegano dettagliatamente:
@@ -88,18 +110,6 @@ File inclusi:
 documentation/P2PKH.tex (file sorgente LaTeX).
 documentation/P2PKH.pdf
 Puoi leggere il file PDF nella cartella docs per comprendere meglio l'algoritmo utilizzato dal programma.
-
-## Struttura del file JSON
-Il file JSON generato conterrà i seguenti campi:
-
-```bash
-{
-    "private_key_hex": "Hexadecimal format of the private key",
-    "private_key_wif": "Private key in WIF format",
-    "public_key_hex": "Hexadecimal format of the public key",
-    "address": "Generated Bitcoin address (P2PKH)"
-}
-```
 
 ## Contributi
 Se hai suggerimenti o vuoi contribuire al progetto, sentiti libero di aprire un'issue o una pull request su GitHub.
