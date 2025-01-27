@@ -1,8 +1,8 @@
-# Bitcoin HD Wallet Toolkit ???
+# Bitcoin HD Wallet Toolkit ₿🔐
 
 Tool per la gestione di portafogli Bitcoin gerarchici deterministici (BIP32/39/44).
 
-## Strumenti Disponibili ???
+## Strumenti Disponibili 🛠️
 ### 1. Generatore HD Wallet
 ```bash
 python hd_wallet_generator.py
@@ -23,42 +23,48 @@ python wallet_explorer.py
 
 - Analizza transazioni confermate/pending
 
-## Funzionalità Comuni ?
-? Supporto Mainnet/Testnet
+## Funzionalità Comuni ✨
+✅ Supporto Mainnet/Testnet
 
-?? Compatibilit� con standard BIP32/39/44
+🔄 Compatibilità con standard BIP32/39/44
 
-?? Gestione sicura delle chiavi private
+🔐 Gestione sicura delle chiavi private
 
-?? Esportazione JSON strutturato
+📁 Esportazione JSON strutturato
 
-??? Validazione integrata degli input
+🛡️ Validazione integrata degli input
 
-## Installazione ??
+## Installazione ⚙️
 ```bash
 pip install -r requirements.txt
 ```
 
-## Funzionalit� ??
+Consigliato l'uso di ambiente virtuale
+```bash
+source venv/bin/activate   # per attivarlo
+deactivate                 # per disattivarlo
+```
+
+## Funzionalità 🚀
 ### Generatore HD
-?? Generazione seed phrase con entropia configurabile
+🌱 Generazione seed phrase con entropia configurabile
 
-?? Supporto passphrase personalizzata
+🔑 Supporto passphrase personalizzata
 
-?? Derivazione path personalizzabile
+📍 Derivazione path personalizzabile
 
-?? Esportazione chiavi in formato WIF
+💾 Esportazione chiavi in formato WIF
 
 ### Analizzatore HD
-?? Integrazione real-time con mempool.space
+📡 Integrazione real-time con mempool.space
 
-?? Dashboard saldi interattiva
+📊 Dashboard saldi interattiva
 
-?? Storico transazioni dettagliato
+🔍 Storico transazioni dettagliato
 
-?? Allerta saldi pending
+⚠️ Allerta saldi pending
 
-## Strutture Dati JSON ??
+## Strutture Dati JSON 📄
 ### Generatore HD
 ```bash
 {
@@ -93,7 +99,7 @@ pip install -r requirements.txt
 }
 ```
 
-## Esempi d'Uso ??
+## Esempi d'Uso 💻
 ### Generazione Wallet
 ```bash
 =================== NUOVO WALLET ===================
@@ -107,13 +113,13 @@ Indirizzo 1: bc1qj5pczk... - WIF: L3p6o9i...
 ```bash
 =================== ANALISI SALDI ==================
   1. bc1qj5pczk... 
-     Confermati: 0.21540000 ?
-     In pending: 0.00050000 ?
+     Confermati: 0.21540000 ₿
+     In pending: 0.00050000 ₿
 
-Saldo totale: 0.54943145 ?
+Saldo totale: 0.54943145 ₿
 ```
 
-## Licenze ??
+## Licenze 📜
 MIT License - Libero utilizzo con attribuzione.
 
 ## AVVERTENZA!
