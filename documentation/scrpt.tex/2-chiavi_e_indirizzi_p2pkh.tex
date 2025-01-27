@@ -1,0 +1,278 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+\title{Generazione degli Indirizzi P2PKH}
+\author{Davide3011}
+\date{January 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduzione}
+
+Gli indirizzi P2PKH (Pay-to-PubKey-Hash) rappresentano uno dei formati di indirizzo più diffusi e fondamentali nella rete Bitcoin. Introdotti nel 2009, poco dopo il lancio del protocollo Bitcoin, gli indirizzi P2PKH sono stati progettati come un miglioramento rispetto al formato iniziale \textbf{Pay-to-Public-Key (P2PK)}. Nei primi blocchi della blockchain (es. blocco 0, noto come Genesis Block), le transazioni utilizzavano indirizzi P2PK, che inviavano fondi direttamente alla chiave pubblica del destinatario. Questo approccio, sebbene funzionale, presentava una vulnerabilità significativa: l'esposizione della chiave pubblica poteva rappresentare un rischio per la sicurezza nel lungo termine.
+
+Con l'adozione di P2PKH, che iniziò a essere ampiamente utilizzato nei primi blocchi successivi al Genesis Block, Bitcoin introdusse un meccanismo più sicuro e compatto. Gli indirizzi P2PKH utilizzano l'\textbf{hash della chiave pubblica} (tramite SHA-256 e RIPEMD-160) per nascondere la chiave pubblica sottostante, riducendo il rischio di attacchi crittografici futuri.
+
+Gli indirizzi P2PKH sono identificabili dal loro prefisso \texttt{1} nella rete principale (mainnet) e dai prefissi \texttt{m} o \texttt{n} nella rete di test (testnet). Essi sono generati seguendo un processo ben definito, che include l'applicazione di funzioni crittografiche e la codifica del risultato finale nel formato \textbf{Base58Check} per migliorare la leggibilità.
+
+In questo documento, analizzeremo il processo di generazione degli indirizzi P2PKH in dettaglio, considerando due approcci principali:
+\begin{itemize}
+    \item Utilizzando una \textbf{chiave pubblica non compressa}, lunga 65 byte, che contiene informazioni dettagliate sul punto della curva ellittica generato dalla chiave privata.
+    \item Utilizzando una \textbf{chiave pubblica compressa}, lunga 33 byte, che rappresenta un formato più compatto ma equivalente in termini di funzionalità.
+\end{itemize}
+
+Entrambi gli approcci condividono la stessa struttura generale del formato dell'indirizzo, che include:
+\begin{itemize}
+    \item L'applicazione di \textbf{SHA-256} e \textbf{RIPEMD-160} alla chiave pubblica per ottenere l'hash della chiave pubblica.
+    \item L'aggiunta di un \textbf{prefisso di rete} per identificare la rete utilizzata (es. \texttt{0x00} per mainnet).
+    \item La generazione di un \textbf{checksum}, utilizzando doppio SHA-256, per rilevare errori di digitazione o alterazioni accidentali.
+    \item La codifica del risultato finale nel formato \textbf{Base58Check}, che produce un indirizzo leggibile dall'utente.
+\end{itemize}
+
+Grazie a questa struttura, gli indirizzi P2PKH hanno maggiore sicurezza rispetto ai loro predecessori P2PK, diventando lo standard per le transazioni nella rete Bitcoin. 
+Sebbene siano ancora ampiamente utilizzati, gli indirizzi P2PKH risultano meno efficienti rispetto ai formati più moderni in termini di dimensioni delle transazioni e costi delle commissioni.
+
+\section{Chiave Privata e Pubblica}
+\subsection{Generazione della Chiave Privata}
+La chiave privata è un numero casuale di 256 bit generato utilizzando un generatore di numeri casuali crittograficamente sicuro (CSPRNG). Ad esempio:
+\begin{verbatim}
+Chiave privata:
+e9873d79c6d87dc0fb6a5778633389e486f4dd9c0677d39b8a2e0f140d4a2d07
+\end{verbatim}
+
+\section{Formato WIF (Wallet Import Format)}
+Il formato WIF (\textit{Wallet Import Format}) è una rappresentazione leggibile della chiave privata. Questo formato è comunemente utilizzato per importare o esportare chiavi private in wallet Bitcoin. Il WIF è essenzialmente una codifica Base58Check della chiave privata, con alcuni passaggi aggiuntivi per garantire la sicurezza e l'identificabilità della rete.
+
+\subsection{Passaggi per Calcolare il Formato WIF}
+Il processo per ottenere il WIF è il seguente:
+
+\begin{enumerate}
+    \item \textbf{Aggiunta del prefisso della rete:}
+    \begin{itemize}
+        \item Per \textbf{mainnet}, il prefisso è \texttt{0x80}.
+        \item Per \textbf{testnet}, il prefisso è \texttt{0xEF}.
+    \end{itemize}
+    Al valore della chiave privata (32 byte) viene aggiunto il prefisso della rete.
+
+    \item \textbf{Aggiunta del byte di compressione (opzionale):}
+    \begin{itemize}
+        \item Se la chiave pubblica associata è \textbf{compressa}, viene aggiunto il byte \texttt{0x01} alla fine.
+        \item In caso contrario, non viene aggiunto alcun byte.
+    \end{itemize}
+
+    \item \textbf{Calcolo del checksum:}
+    \begin{itemize}
+        \item Si applica SHA-256 due volte al risultato dei passaggi precedenti.
+        \item I primi 4 byte del risultato sono il checksum.
+    \end{itemize}
+
+    \item \textbf{Codifica in Base58Check:}
+    \begin{itemize}
+        \item Il risultato finale è ottenuto concatenando:
+        \begin{itemize}
+            \item Prefisso della rete + Chiave privata + Byte di compressione (se applicabile) + Checksum.
+        \end{itemize}
+        \item Questo valore viene codificato nel formato Base58Check per generare il WIF leggibile.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Esempio di Calcolo del WIF}
+\begin{itemize}
+    \item \textbf{Chiave privata (esadecimale):}
+    \begin{verbatim}
+    e9873d79c6d87dc0fb6a5778633389e486f4dd9c0677d39b8a2e0f140d4a2d07
+    \end{verbatim}
+    \item \textbf{Chiave privata con prefisso (mainnet):}
+    \begin{verbatim}
+    80e9873d79c6d87dc0fb6a5778633389...0f140d4a2d07
+    \end{verbatim}
+    \item \textbf{SHA-256 (prima applicazione):}
+    \begin{verbatim}
+    5b3e9a65fbdc014f94ecf88aa45dfd2f2f577d648d3bbf9b92321cb16f7a70e4
+    \end{verbatim}
+    \item \textbf{SHA-256 (seconda applicazione):}
+    \begin{verbatim}
+    6028f25e5a68b6f731f40fc5c884b58c8d4ef664aab1db24936e11d7d7267a2b
+    \end{verbatim}
+    \item \textbf{Checksum:}
+    \begin{verbatim}
+    6028f25e
+    \end{verbatim}
+    \item \textbf{Base58Check finale:}
+    \begin{verbatim}
+    5HueCGU8rMjxEXxiPuD5BDu...
+    \end{verbatim}
+\end{itemize}
+
+Con il formato WIF, l'importazione e l'esportazione di chiavi private diventa più semplice e leggibile, mantenendo la sicurezza e la compatibilità.
+
+
+\subsection{Derivazione della Chiave Pubblica}
+La chiave pubblica viene derivata dalla chiave privata utilizzando l'algoritmo della curva ellittica \texttt{secp256k1}. Ecco il processo:
+
+\subsubsection*{Curva Ellittica secp256k1}
+La curva è definita dall'equazione:
+\[
+y^2 = x^3 + 7 \mod p
+\]
+dove:
+\begin{itemize}
+    \item \(p = 2^{256} - 2^{32} - 977\): modulo primo.
+    \item \(G = (x_G, y_G)\): punto generatore della curva.
+    \item \(n\): ordine della curva (numero totale di punti).
+\end{itemize}
+
+\subsubsection*{Moltiplicazione Scalare}
+La chiave pubblica \(P\) è calcolata come:
+\[
+P = d \cdot G
+\]
+dove:
+\begin{itemize}
+    \item \(d\): chiave privata.
+    \item \(G\): punto generatore.
+    \item \(P = (x_P, y_P)\): punto risultante sulla curva.
+\end{itemize}
+
+\subsubsection*{Operazioni Coinvolte:}
+\begin{enumerate}
+    \item \textbf{Somma di Punti:} Dati due punti \(P_1 = (x_1, y_1)\) e \(P_2 = (x_2, y_2)\), la somma \(P_3 = P_1 + P_2\) si calcola come:
+    \[
+    \lambda = \frac{y_2 - y_1}{x_2 - x_1} \mod p
+    \]
+    \[
+    x_3 = \lambda^2 - x_1 - x_2 \mod p, \quad y_3 = \lambda (x_1 - x_3) - y_1 \mod p
+    \]
+    \item \textbf{Raddoppio di un Punto:} Se \(P_1 = P_2\), si usa:
+    \[
+    \lambda = \frac{3x_1^2}{2y_1} \mod p
+    \]
+    \[
+    x_3 = \lambda^2 - 2x_1 \mod p, \quad y_3 = \lambda (x_1 - x_3) - y_1 \mod p
+    \]
+    \item \textbf{Moltiplicazione Scalare:} Si calcola \(d \cdot G\) utilizzando l'algoritmo \textbf{double-and-add}:
+    \begin{itemize}
+        \item Espandi \(d\) in binario.
+        \item Per ogni bit di \(d\): raddoppia il punto corrente e, se il bit è \(1\), aggiungi \(G\).
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Formato della Chiave Pubblica}
+\begin{itemize}
+    \item \textbf{Non compressa (65 byte):} Inizia con il prefisso \texttt{0x04}, seguito da 32 byte per \(x\) e 32 byte per \(y\).
+    \item \textbf{Compressa (33 byte):} Inizia con \texttt{0x02} o \texttt{0x03}, a seconda che \(y\) sia pari o dispari, seguito da 32 byte per \(x\).
+\end{itemize}
+
+\section{Generazione dell'Indirizzo P2PKH}
+
+\subsection{Con Chiave Pubblica Non Compressa}
+Il processo per generare un indirizzo P2PKH con una chiave pubblica non compressa include i seguenti passaggi. Viene fatto riferimento alle differenze tra mainnet e testnet:
+
+\begin{enumerate}
+    \item \textbf{Hash della Chiave Pubblica:}
+    \begin{itemize}
+        \item La chiave pubblica non compressa (65 byte, prefisso \texttt{0x04}, seguito da 32 byte per \(x\) e 32 byte per \(y\)) viene sottoposta a due funzioni hash successive:
+        \begin{itemize}
+            \item \textbf{SHA-256:} Calcola un hash di 256 bit della chiave pubblica.
+            \item \textbf{RIPEMD-160:} Calcola un hash di 160 bit sul risultato del SHA-256, ottenendo il \textit{Public Key Hash (PKH)}.
+        \end{itemize}
+        \item Questo passaggio è identico per entrambe le reti.
+    \end{itemize}
+
+    \item \textbf{Aggiunta del Prefisso di Rete:}
+    \begin{itemize}
+        \item Al Public Key Hash viene aggiunto un prefisso per identificare la rete:
+        \begin{itemize}
+            \item \texttt{0x00} per \textbf{mainnet}.
+            \item \texttt{0x6F} per \textbf{testnet}.
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Calcolo del Checksum:}
+    \begin{itemize}
+        \item Viene calcolato un checksum per rilevare eventuali errori di trascrizione. Si applicano due volte la funzione \textbf{SHA-256} al risultato del passaggio precedente (Prefisso + PKH).
+        \item I primi 4 byte del risultato finale vengono utilizzati come checksum.
+        \item Questo passaggio è identico sia per mainnet che per testnet.
+    \end{itemize}
+
+    \item \textbf{Codifica Base58Check:}
+    \begin{itemize}
+        \item Il risultato (Prefisso + PKH + Checksum) viene codificato in \textbf{Base58Check} per produrre l'indirizzo leggibile dall'utente.
+        \begin{itemize}
+            \item Gli indirizzi su \textbf{mainnet} iniziano con \texttt{1}.
+            \item Gli indirizzi su \textbf{testnet} iniziano con \texttt{m} o \texttt{n}.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Con Chiave Pubblica Compressa}
+Il processo per generare un indirizzo P2PKH con una chiave pubblica compressa segue gli stessi passaggi descritti sopra. La differenza principale riguarda il formato della chiave pubblica:
+\begin{itemize}
+    \item \textbf{Chiave pubblica compressa (33 byte):}
+    \begin{itemize}
+        \item Inizia con \texttt{0x02} o \texttt{0x03}, a seconda che la coordinata \(y\) sia pari o dispari, seguito da 32 byte per la coordinata \(x\).
+        \item Questo formato riduce la dimensione della chiave pubblica rispetto alla versione non compressa (65 byte).
+    \end{itemize}
+    \item \textbf{Hashing e Prefissi:}
+    \begin{itemize}
+        \item I passaggi di hashing, aggiunta del prefisso, calcolo del checksum e codifica Base58Check sono identici per entrambe le reti (mainnet e testnet).
+    \end{itemize}
+    \item \textbf{Risultato Finale:}
+    \begin{itemize}
+        \item Gli indirizzi generati su \textbf{mainnet} iniziano con \texttt{1}.
+        \item Gli indirizzi generati su \textbf{testnet} iniziano con \texttt{m} o \texttt{n}.
+    \end{itemize}
+\end{itemize}
+
+
+\section{Esempi}
+\subsection{Esempio con Chiave Pubblica Non Compressa}
+\begin{itemize}
+    \item \textbf{Chiave Pubblica Non Compressa:} 
+    \begin{verbatim}
+    04bfcab1cd4c9b5b2c1a62d27f5a6f9b6e9b1c8c1e4f85...
+    \end{verbatim}
+    \item \textbf{Hash SHA-256:} 
+    \begin{verbatim}
+    f54d3f1c2b3e45f1d2d50f4c91b831...
+    \end{verbatim}
+    \item \textbf{Hash RIPEMD-160:} 
+    \begin{verbatim}
+    76a91488ac...
+    \end{verbatim}
+    \item \textbf{Indirizzo Finale (Mainnet):} 
+    \begin{verbatim}
+    1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+    \end{verbatim}
+\end{itemize}
+
+\subsection{Esempio con Chiave Pubblica Compressa}
+\begin{itemize}
+    \item \textbf{Chiave Pubblica Compressa:} 
+    \begin{verbatim}
+    02c72e0f5c3b9d6f9301c5df30e0dbe234b61f...
+    \end{verbatim}
+    \item \textbf{Hash SHA-256:} 
+    \begin{verbatim}
+    a99f3f1b2d4e57f1d5d90f3c91b819...
+    \end{verbatim}
+    \item \textbf{Hash RIPEMD-160:} 
+    \begin{verbatim}
+    76a914abcd...
+    \end{verbatim}
+    \item \textbf{Indirizzo Finale (Mainnet):} 
+    \begin{verbatim}
+    1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+    \end{verbatim}
+\end{itemize}
+
+\end{document}
