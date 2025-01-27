@@ -9,10 +9,6 @@
 # extended private key, extended public key BIP44
 # generazione di n indirizzi a scelta (con chiavi)
 
-# da aggiungere:
-# implementazione per electrum (m/84'/0'0')
-# scrivere il codice con meno librerie (vederle su GitHub)
-
 import hashlib
 import base58
 import json
@@ -89,7 +85,16 @@ def generate_hd_wallet():
 
     # Deriva le chiavi usando il percorso BIP44: m/44'/0'/0'
     bip44_ctx = Bip44.FromSeed(bip39_seed, network)
-    bip44_account = bip44_ctx.Purpose().Coin().Account(0).Change(Bip44Changes.CHAIN_EXT)
+    bip44_account = bip44_ctx.Purpose().Coin().Account(0)
+    
+    # Ottieni le chiavi estese dell'account (xprv e xpub)
+    account_xprv = bip44_account.PrivateKey().ToExtended()
+    account_xpub = bip44_account.PublicKey().ToExtended()
+    print(f"Account Extended Private Key (xprv): {account_xprv}")
+    print(f"Account Extended Public Key (xpub): {account_xpub}\n")
+
+    # Deriva ulteriormente per gli indirizzi
+    bip44_address_ctx = bip44_account.Change(Bip44Changes.CHAIN_EXT)
     derivation_path = "m/44'/0'/0'/0" if network_choice == "1" else "m/44'/1'/0'/0"
     print(f"BIP32 Derivation Path: {derivation_path}\n")
     
@@ -99,7 +104,7 @@ def generate_hd_wallet():
 
     print("\nIndirizzi generati:\n")
     for i in range(num_addresses):
-        address_ctx = bip44_account.AddressIndex(i)
+        address_ctx = bip44_address_ctx.AddressIndex(i)
         private_key_raw = address_ctx.PrivateKey().Raw().ToHex()
         private_key_wif = private_key_to_wif(private_key_raw, network_name.lower(), compressed=True)
 
@@ -129,6 +134,8 @@ def generate_hd_wallet():
         "Passphrase": passphrase if passphrase else "None",
         "BIP39_Seed": bip39_seed.hex(),
         "BIP32_Root_Key": bip32_root_key,
+        "Account_Extended_Private_Key": account_xprv,
+        "Account_Extended_Public_Key": account_xpub,
         "BIP32_Derivation_Path": derivation_path,
         "Addresses": addresses
     }
