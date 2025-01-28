@@ -15,7 +15,7 @@ Ogni modulo ha una cartella dedicata con la propria documentazione e requisiti:
 
 | Cartella       | Descrizione                                  | Stato       |
 |----------------|----------------------------------------------|-------------|
-| [/P2PK](P2PK/) | Generazione indirizzi legacy Pay-to-Public-Key | Pianificato    |
+| [/P2PK](P2PK/) | Generazione indirizzi legacy Pay-to-Public-Key | In Sviluppo    |
 | [/P2PKH](P2PKH/)| Generazione indirizzi P2PKH con codifica Base58 | Completo    |
 | [/HDwallet](HDwallet/)| Wallet gerarchici (BIP-32/44/39)           | In sviluppo |
 |[/P2SH](P2SH/) | Generazione indirizzi legacy Pay-to-Script-Hash | Pianificato    |
