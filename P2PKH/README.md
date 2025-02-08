@@ -1,6 +1,8 @@
 # Generatore di Indirizzi Bitcoin (P2PKH)
 
-Questo repository contiene due script Python che consentono di generare chiavi Bitcoin (privata e pubblica) e un indirizzo P2PKH. Lo script mainGUI.py hq un'interfaccia grafica (GUI), mentre l'altro (mainNoGUI.py) funziona interamente da riga di comando.
+Questo repository contiene due script Python che consentono di generare chiavi Bitcoin (privata e pubblica) e un indirizzo P2PKH. Lo script gui.py hq un'interfaccia grafica (GUI), mentre lo script cli.py funziona interamente da terminale.
+
+Una cartella old in cui il programma dà la possibilità di scegliere se usare le chiavi compresse o estese.
 
 ## Funzionalità
 Entrambi gli script offrono:
@@ -31,11 +33,7 @@ documentation/: Documentazione dettagliata sull'algoritmo e sul formato dei dati
 
 ### 1. Clona il repository
 
-Clona il progetto sul tuo computer:
-```bash
-git clone git@github.com:davide3011/AddressGen.git
-cd AddressGen
-```
+Clona il progetto sul tuo computer e spostati nella directory.
 
 ### 2. Crea un ambiente virtuale (consigliato)
 Crea e attiva un ambiente virtuale Python:
@@ -63,7 +61,7 @@ sudo apt install python3-tk
 
 Avvia lo script:
 ```bash
-python mainGUI.py
+python gui.py
 ```
 
 Interagisci con l'interfaccia:
@@ -77,7 +75,7 @@ Interagisci con l'interfaccia:
 Avvia lo script:
 
 ```bash
-python mainNoGUI.py
+python cli.py
 ```
 
 Segui le istruzioni fornite per:
