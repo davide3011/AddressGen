@@ -8,6 +8,7 @@
 - **Generazione di wallet** per diversi standard:
   - **P2PK**: Indirizzi legacy Pay-to-Public-Key *(in sviluppo)*
   - **P2PKH**: Indirizzi legacy Pay-to-Public-Key-Hash (completo)
+  - **P2WPKH**: Indirizzi Pay-to-Witness-Public-Key-Hash (completo)
   - **HDwallet**: Wallet gerarchici deterministici (BIP32/BIP44/BIP39) *(in sviluppo)*
 - **Supporto per Mainnet e Testnet**  
   Utilizza il flag `--testnet` per generare indirizzi sulla rete di test.
@@ -22,7 +23,8 @@ Ogni modulo ha una cartella dedicata, contenente sia il codice che la documentaz
 | [P2PK](P2PK/)           | Generazione indirizzi legacy Pay-to-Public-Key (P2PK)          | In Sviluppo   |
 | [P2PKH](P2PKH/)         | Generazione indirizzi P2PKH con codifica Base58                | Completo      |
 | [P2SH](P2SH/)           | Generazione indirizzi legacy Pay-to-Script-Hash                | Pianificato   |
-| [bech32](bech32/)       | Generazione indirizzi Native SegWit                            | Pianificato   |
+| [P2WPKH](P2WPKH/)       | Generazione indirizzi Native SegWit (P2WPKH)                   | Completato    |
+| [P2WSH](P2WSH/)         | Generazione indirizzi Native SegWit (P2WSH)                    | Pianificato   |
 | [P2TR](P2TR/)           | Generazione indirizzi Pay-to-Taproot (P2TR)                    | Pianificato   |
 | [HDwallet](HDwallet/)   | Wallet gerarchici deterministici (BIP32/BIP44/BIP39)           | In Sviluppo   |
 
