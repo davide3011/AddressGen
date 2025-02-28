@@ -1,0 +1,154 @@
+:root {
+    /* Mainnet (arancione) */
+    --mainnet-primary: #FF9900;
+    --mainnet-secondary: #CC7A00;
+    --mainnet-bg: linear-gradient(135deg, #2a2000, #4a3000);
+
+    /* Testnet (verde) */
+    --testnet-primary: #00FF00;
+    --testnet-secondary: #00CC00;
+    --testnet-bg: linear-gradient(135deg, #002a00, #004a00);
+
+    /* Regtest (azzurro) */
+    --regtest-primary: #00BFFF;
+    --regtest-secondary: #0099CC;
+    --regtest-bg: linear-gradient(135deg, #002a2a, #004a4a);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Cambia colore in base alla rete selezionata */
+body[data-theme="mainnet"] {
+    background: var(--mainnet-bg);
+    --primary-color: var(--mainnet-primary);
+    --secondary-color: var(--mainnet-secondary);
+}
+
+body[data-theme="testnet"] {
+    background: var(--testnet-bg);
+    --primary-color: var(--testnet-primary);
+    --secondary-color: var(--testnet-secondary);
+}
+
+body[data-theme="regtest"] {
+    background: var(--regtest-bg);
+    --primary-color: var(--regtest-primary);
+    --secondary-color: var(--regtest-secondary);
+}
+
+.back-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Distanza tra il pulsante e il contenitore */
+}
+
+.back-button .button {
+    background: var(--primary-color);
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    display: inline-block;
+    transition: all 0.3s ease;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+}
+
+.back-button .button:hover {
+    background: var(--secondary-color);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    margin: 20px;
+}
+
+h1.glow {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    font-size: 2.5em;
+}
+
+.button {
+    background: var(--primary-color);
+    color: #000;
+    border: none;
+    padding: 1.5rem 3rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.button:hover {
+    background: var(--secondary-color);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.address-display {
+    background: #000;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    word-break: break-word;
+    font-family: 'Courier New', monospace;
+    border: 2px solid var(--primary-color);
+    font-size: 1.3em;
+    min-height: 100px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+select {
+    background: #333;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+select:hover {
+    background: #404040;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem 1rem;
+    }
+    
+    .button {
+        padding: 1.2rem 2rem;
+        width: 100%;
+        font-size: 1.1em;
+    }
+    
+    .address-display {
+        font-size: 1.1em;
+    }
+}

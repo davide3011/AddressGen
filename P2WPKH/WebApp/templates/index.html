@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore Indirizzi Bitcoin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% if show_back_button %}
+    <div class="back-button">
+        <a href="javascript:history.back()" class="button">Torna indietro</a>
+    </div>
+    {% endif %}
+    <div class="container">
+        <h1 class="glow">Bitcoin SegWit Address Generator</h1>
+
+        <div class="network-selector">
+            <select id="networkSelect">
+                <option value="mainnet">Mainnet</option>
+                <option value="testnet">Testnet</option>
+                <option value="regtest">Regtest</option>
+            </select>
+        </div>
+
+        <div class="address-display" id="addressDisplay">Generating...</div>
+
+        <div class="button-group">
+            <button class="button" onclick="generateNewAddress()">Genera Indirizzo</button>
+            <button class="button" onclick="downloadKey()">Scarica Chiave</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
