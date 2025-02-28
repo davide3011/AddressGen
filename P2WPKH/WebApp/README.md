@@ -13,10 +13,7 @@ L'app è pensata per **test in locale**, ma può essere facilmente integrata in 
 
 
 ## **Installazione e Avvio in Locale**
-1. **Clona il repository**:
-   ```sh
-   git clone https://github.com/tuo-username/bitcoin-address-generator.git
-   cd bitcoin-address-generator
+1. **Clona il repository**
 
 2. **Crea un ambiente virtuale e installa le dipendenze:**
 
