@@ -1,0 +1,37 @@
+{
+    "seed_phrase": "talk rule own version dawn medal mixed nurse jar raw hen arrow",
+    "extended_private_key": "xprv9ytazj7mSAFEwGAUD3s8tuHHm4TkFYgWabhGuLGKmfgPyry4e1UcFpamfE6Aoa4CshR6ActXMhrkqdgBe1sZmcL1capBp3K6tmiN5CjbWp5",
+    "extended_public_key": "xpub6CswQEefGXoY9kEwK5Q9G3E2K6JEf1QMwpcshifwL1DNrfJDBYnrocuFWVLKTHK4Dvj34noPZwcZ4o4dxYJA65nJuyVr88bzTW9GaN8eKMk",
+    "addresses": [
+        {
+            "index": 0,
+            "address": "1KKDowoNVDeTCbp1d2HmX1J38rXE4cLfrm",
+            "wif": "KxJ3izQPdAdnaLb2Z8ZWcZWbNdw3L7t7xV7cG4PTaimhRCD3z7Cg",
+            "path": "m/44'/0'/0'/0/0"
+        },
+        {
+            "index": 1,
+            "address": "1ZjgsqLmgdcvShwfCNpnppVc6eCLYcSau",
+            "wif": "L32kQLCGjyoYx5KeESG6AwRngX5qnx9WHTCDSg29dXBJoZtqzuGv",
+            "path": "m/44'/0'/0'/0/1"
+        },
+        {
+            "index": 2,
+            "address": "1NxQsaibNmgZr67ynx8cKP2z2GzpghupeH",
+            "wif": "L3b7VMFWeTVcZ9s9whb8332uaM78vBE5VTFafbcRbdovXAcrPw4D",
+            "path": "m/44'/0'/0'/0/2"
+        },
+        {
+            "index": 3,
+            "address": "1Beqh6PwwKaeEG7gWa2VPdCw1FsnNmjk3Q",
+            "wif": "KyxUc2caV9uXRyBAZ84hqVp7urMnqeEH979ykwbrtmPs9vt4iDKA",
+            "path": "m/44'/0'/0'/0/3"
+        },
+        {
+            "index": 4,
+            "address": "19B7zVGudhRBmDY78zSWonbBF1UpZbUQ8U",
+            "wif": "KwUmwPoawsT1QVLXwHAoHWnqyE5niiJNwQJb1n5wRq87fGn36GVq",
+            "path": "m/44'/0'/0'/0/4"
+        }
+    ]
+}

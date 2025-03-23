@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Guida - Generatore HD Wallet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='header-footer.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+</head>
+<body>
+    <div class="container guide-container">
+        <div class="header">
+            <a href="/" class="logo">
+                <img src="{{ url_for('static', filename='favicon.png') }}" alt="Logo">
+                <span class="logo-text">Generatore HD Wallet</span>
+            </a>
+            <div class="nav">
+                <a href="/">Home</a>
+            </div>
+        </div>
+        
+        <h1>Guida Completa al Generatore HD Wallet</h1>
+        
+        <div class="guide-section">
+            <h2>Come Utilizzare il Generatore</h2>
+            <p>Il nostro generatore di wallet Bitcoin HD (Hierarchical Deterministic) ti permette di creare facilmente un wallet Bitcoin completo. Ecco una guida dettagliata su come utilizzarlo:</p>
+            
+            <h3>1. Scegli il Tipo di Indirizzo</h3>
+            <div class="guide-item">
+                <p><strong>P2PKH (BIP44, Legacy)</strong>: Gli indirizzi legacy iniziano con "1". Sono compatibili con tutti i wallet e servizi Bitcoin, ma hanno commissioni di transazione leggermente più alte.</p>
+                <p><strong>P2WPKH (BIP84, SegWit)</strong>: Gli indirizzi SegWit iniziano con "bc1". Offrono commissioni di transazione più basse e sono supportati dalla maggior parte dei wallet moderni.</p>
+            </div>
+            
+            <h3>2. Seleziona la Rete</h3>
+            <div class="guide-item">
+                <p><strong>Mainnet</strong>: La rete Bitcoin principale, dove avvengono le transazioni reali con valore economico.</p>
+                <p><strong>Testnet</strong>: Una rete di test dove puoi sperimentare senza rischiare Bitcoin reali. I Bitcoin testnet non hanno valore reale e possono essere ottenuti gratuitamente da "faucet" online.</p>
+            </div>
+            
+            <h3>3. Imposta il Numero di Indirizzi</h3>
+            <div class="guide-item">
+                <p>Puoi generare da 1 a 20 indirizzi derivati dalla stessa seed phrase. Ogni indirizzo è unico ma collegato alla stessa seed phrase, seguendo lo standard HD Wallet.</p>
+                <p>Nei wallet HD, gli indirizzi vengono generati in sequenza. Ad esempio, se generi 5 indirizzi, otterrai gli indirizzi con indice da 0 a 4.</p>
+            </div>
+            
+            <h3>4. Scegli la Lunghezza della Seed Phrase</h3>
+            <div class="guide-item">
+                <p>La seed phrase (o frase di recupero) è una serie di parole che rappresenta la tua chiave privata principale. Puoi scegliere tra:</p>
+                <ul>
+                    <li><strong>12 parole</strong>: Sicurezza di base (128 bit)</li>
+                    <li><strong>15 parole</strong>: Sicurezza intermedia (160 bit)</li>
+                    <li><strong>18 parole</strong>: Alta sicurezza (192 bit)</li>
+                    <li><strong>21 parole</strong>: Sicurezza molto alta (224 bit)</li>
+                    <li><strong>24 parole</strong>: Massima sicurezza (256 bit)</li>
+                </ul>
+                <p>Per la maggior parte degli utenti, una seed phrase di 12 o 24 parole è sufficiente. Le seed phrase più lunghe offrono una sicurezza teoricamente maggiore, ma anche 12 parole sono praticamente impossibili da indovinare con la tecnologia attuale.</p>
+            </div>
+        </div>
+        
+        <div class="guide-section">
+            <h2>Compatibilità con Electrum e Altri Wallet</h2>
+            <p>Il wallet generato è completamente compatibile con Electrum e altri wallet che supportano gli standard BIP39, BIP44 e BIP84. Ecco come importare la tua seed phrase in alcuni wallet popolari:</p>
+            
+            <h3>Importare in Electrum</h3>
+            <ol>
+                <li>Scarica e installa <a href="https://electrum.org/" target="_blank">Electrum</a></li>
+                <li>Avvia Electrum e seleziona "Crea un nuovo wallet"</li>
+                <li>Seleziona "Standard wallet"</li>
+                <li>Seleziona "I already have a seed"</li>
+                <li>Inserisci la seed phrase generata</li>
+                <li>Seleziona il tipo di derivazione corretto (BIP39 per P2PKH o BIP84 per P2WPKH)</li>
+                <li>Segui le istruzioni rimanenti per completare l'importazione</li>
+            </ol>
+            
+            <h3>Importare in Altri Wallet</h3>
+            <p>La maggior parte dei wallet moderni supporta l'importazione tramite seed phrase. Cerca l'opzione "Importa wallet" o "Ripristina wallet" e inserisci la seed phrase generata.</p>
+            <p>Wallet compatibili includono:</p>
+            <ul>
+                <li>Ledger (hardware wallet)</li>
+                <li>Trezor (hardware wallet)</li>
+                <li>BlueWallet (mobile)</li>
+                <li>Exodus (desktop/mobile)</li>
+                <li>Trust Wallet (mobile)</li>
+                <li>Coinomi (mobile)</li>
+            </ul>
+        </div>
+        
+        <div class="guide-section">
+            <h2>Sicurezza e Privacy</h2>
+            <p><strong>Il nostro generatore è completamente sicuro e rispetta la tua privacy:</strong></p>
+            <ul>
+                <li>Tutte le operazioni avvengono localmente nel tuo browser</li>
+                <li>Nessun dato sensibile viene mai inviato ai nostri server</li>
+                <li>Non memorizziamo la tua seed phrase, le chiavi private o qualsiasi altra informazione sensibile</li>
+                <li>Il codice è open source e può essere verificato</li>
+            </ul>
+            <p>Tuttavia, la sicurezza del tuo wallet dipende principalmente da come gestisci la tua seed phrase e le tue chiavi private.</p>
+        </div>
+        
+        <div class="guide-section">
+            <h2>Consigli per la Sicurezza</h2>
+            <h3>Come Salvare la Seed Phrase in Modo Sicuro</h3>
+            <p>La seed phrase è la chiave per accedere ai tuoi fondi. Se la perdi, perdi l'accesso ai tuoi Bitcoin. Se qualcun altro la ottiene, può rubare i tuoi Bitcoin. Ecco alcuni consigli per conservarla in modo sicuro:</p>
+            
+            <div class="security-tips">
+                <h4>Metodo 1: Copia Fisica (Consigliato)</h4>
+                <ol>
+                    <li>Scrivi la seed phrase su un foglio di carta resistente o su una piastra di metallo</li>
+                    <li>Crea almeno due copie e conservale in luoghi diversi e sicuri</li>
+                    <li>Considera di dividere la seed phrase in due parti e conservarle separatamente</li>
+                    <li>Non fotografare mai la seed phrase o conservarla in formato digitale</li>
+                </ol>
+                
+                <h4>Metodo 2: Chiavetta USB Offline</h4>
+                <ol>
+                    <li>Salva il file JSON generato su una chiavetta USB dedicata</li>
+                    <li>Assicurati che la chiavetta non sia mai collegata a un computer connesso a Internet</li>
+                    <li>Considera di criptare la chiavetta USB con una password forte</li>
+                    <li>Conserva la chiavetta in un luogo sicuro, lontano da umidità e campi magnetici</li>
+                    <li>Crea un backup della chiavetta USB</li>
+                </ol>
+                
+                <h4>Cosa NON Fare:</h4>
+                <ul>
+                    <li>NON salvare la seed phrase in un file di testo sul computer</li>
+                    <li>NON inviare la seed phrase via email o messaggi</li>
+                    <li>NON fare screenshot della seed phrase</li>
+                    <li>NON salvare la seed phrase nel cloud (Google Drive, Dropbox, ecc.)</li>
+                    <li>NON condividere mai la seed phrase con nessuno</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="guide-section">
+            <h2>Domande Frequenti</h2>
+            <div class="faq-item">
+                <h3>Posso usare questo generatore offline?</h3>
+                <p>Sì, puoi scaricare l'intera applicazione e eseguirla localmente sul tuo computer senza connessione Internet per una sicurezza ancora maggiore.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Cosa succede se perdo la mia seed phrase?</h3>
+                <p>Se perdi la tua seed phrase e non hai altri backup delle chiavi private, perderai permanentemente l'accesso ai tuoi Bitcoin. Non esiste un modo per recuperare una seed phrase persa.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Posso importare una seed phrase esistente?</h3>
+                <p>Attualmente, il generatore può solo creare nuove seed phrase, non importare quelle esistenti. Per gestire una seed phrase esistente, ti consigliamo di utilizzare Electrum o un altro wallet completo.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h3>Quanto sono sicure le seed phrase generate?</h3>
+                <p>Le seed phrase generate seguono lo standard BIP39 e offrono un livello di sicurezza estremamente elevato.</p>
+                <p>Ad esempio una seed phrase di 12 parole possiede 2<sup>128</sup> combinazioni possibili (≈3.4×10<sup>38</sup>). Questo numero equivale a:</p>
+                <ul>
+                    <li>340 milioni di miliardi di miliardi di miliardi di combinazioni</li>
+                    <li>1 miliardo di volte il numero di atomi presenti nella Via Lattea</li>
+                    <li>10<sup>28</sup> volte maggiore del numero di secondi trascorsi dal Big Bang</li>
+                </ul>
+
+                <p>Anche con supercomputer moderni, sarebbe necessaria una quantità di tempo superiore all'età dell'universo per enumerare tutte le possibili combinazioni.</p>
+            </div>
+        </div>
+
+        <a href="/" class="back-btn">Torna al Generatore</a>
+    </div>
+    
+    <div class="footer">
+        <p>Generatore HD Wallet Bitcoin - Compatibile con Electrum</p>
+        <p>Creato da <span class="creator"><a href="https://github.com/davide3011/AddressGen" target="_blank" class="footer-link">davide3011</a></span></p>
+        <p>&copy; 2025 - Tutti i diritti riservati</p>
+    </div>
+</body>
+</html>

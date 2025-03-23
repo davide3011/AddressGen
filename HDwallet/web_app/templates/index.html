@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Generatore HD Wallet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='header-footer.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <script>
+        function showQRCode(address) {
+            const modal = document.getElementById('qrModal');
+            const qrImage = document.getElementById('qrImage');
+            const addressText = document.getElementById('addressText');
+            
+            // Imposta l'indirizzo nel modal
+            addressText.textContent = address;
+            
+            // Imposta l'immagine QR
+            qrImage.src = `/qrcode?address=${encodeURIComponent(address)}`;
+            
+            // Mostra il modal
+            modal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('qrModal');
+            modal.style.display = 'none';
+        }
+        
+        // Chiudi il modal se l'utente clicca fuori da esso
+        window.onclick = function(event) {
+            const modal = document.getElementById('qrModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="logo">
+                <img src="{{ url_for('static', filename='favicon.png') }}" alt="Logo">
+                <span class="logo-text">Generatore HD Wallet</span>
+            </a>
+            <div class="nav">
+                <a href="/guida">Guida</a>
+            </div>
+        </div>
+        
+
+        
+        <div class="user-guide">
+            <h2>Guida Utente</h2>
+            <p>Questa applicazione ti permette di generare un wallet Bitcoin HD (Hierarchical Deterministic) compatibile con Electrum. Ecco come utilizzarla:</p>
+            <ol>
+                <li><strong>Tipo di indirizzo</strong>: Scegli tra P2PKH (Legacy, BIP44) o P2WPKH (SegWit, BIP84) in base alle tue esigenze.</li>
+                <li><strong>Rete</strong>: Seleziona Mainnet per transazioni reali o Testnet per scopi di test.</li>
+                <li><strong>Numero di indirizzi</strong>: Specifica quanti indirizzi derivati vuoi generare (da 1 a 20).</li>
+                <li><strong>Lunghezza Seed Phrase</strong>: Scegli la lunghezza della tua seed phrase (da 12 a 24 parole). Più parole = maggiore sicurezza.</li>
+            </ol>
+            <p><strong>Importante</strong>: Conserva la seed phrase in un luogo sicuro! Chiunque abbia accesso alla tua seed phrase può accedere ai tuoi fondi.</p>
+            <p><strong>Sicurezza</strong>: Questo sito è completamente sicuro e non memorizza le tue informazioni sensibili (seed phrase, chiavi private, ecc.). Tutti i dati vengono generati localmente nel tuo browser.</p>
+            <p>Il wallet generato è completamente compatibile con Electrum e altri wallet che supportano lo standard BIP39/BIP44/BIP84.</p>
+        </div>
+        
+        <form method="POST">
+            <label>Tipo di indirizzo:</label>
+            <select name="addr_type">
+                <option value="p2pkh">P2PKH (BIP44)</option>
+                <option value="p2wpkh">P2WPKH (BIP84)</option>
+            </select>
+
+            <label>Rete:</label>
+            <select name="network">
+                <option value="mainnet">Mainnet</option>
+                <option value="testnet">Testnet</option>
+            </select>
+
+            <label>Numero di indirizzi:</label>
+            <input type="number" name="count" value="5" min="1" max="20">
+
+            <label>Lunghezza Seed Phrase:</label>
+            <select name="seed_length">
+                <option value="12">12 parole</option>
+                <option value="15">15 parole</option>
+                <option value="18">18 parole</option>
+                <option value="21">21 parole</option>
+                <option value="24">24 parole</option>
+            </select>
+
+            <button type="submit">Genera</button>
+        </form>
+
+        {% if seed %}
+        <div class="results">
+            <h2>Seed Phrase <small>(BIP39)</small></h2>
+            <p>{{ seed }}</p>
+
+            <h3>Chiave WIF (prima chiave):</h3>
+            <p>{{ wif }}</p>
+
+            <h3>Percorso di Derivazione <small>(BIP32/BIP44/BIP84)</small>:</h3>
+            <p>{{ path }}</p>
+
+            {% if xprv %}
+            <h3>Chiave Privata Estesa <small>(Extended Private Key)</small>:</h3>
+            <p class="extended-key">{{ xprv }}</p>
+            {% endif %}
+
+            {% if xpub %}
+            <h3>Chiave Pubblica Estesa <small>(Extended Public Key)</small>:</h3>
+            <p class="extended-key">{{ xpub }}</p>
+            {% endif %}
+
+            <h2>Indirizzi generati:</h2>
+            <ul class="address-list">
+                {% for addr in addresses %}
+                    <li>
+                        <span class="address-text" onclick="showQRCode('{{ addr.address }}')">
+                            {{ addr.address }}
+                        </span> 
+                        <small>{{ addr.path }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <div class="download-container">
+                <a href="/download" class="download-btn">Scarica Wallet Backup (JSON)</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Modal per QR Code -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>QR Code</h2>
+            <p id="addressText" class="address-display"></p>
+            <div class="qr-container">
+                <img id="qrImage" src="" alt="QR Code">
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Generatore HD Wallet Bitcoin - Compatibile con Electrum</p>
+        <p>Creato da <a href="https://github.com/davide3011/AddressGen" target="_blank" class="footer-link">davide3011</a></p>
+        <p>&copy; 2025 - Tutti i diritti riservati</p>
+    </div>
+</body>
+</html>
