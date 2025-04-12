@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generatore Indirizzi Bitcoin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='icon.png') }}">
 </head>
-<body>
-    {% if show_back_button %}
-    <div class="back-button">
-        <a href="javascript:history.back()" class="button">Torna indietro</a>
-    </div>
-    {% endif %}
-    <div class="container">
+<body data-theme="{{ network }}">
+    <div class="header">
         <h1 class="glow">Bitcoin SegWit Address Generator</h1>
+        <div class="header-buttons">
+            {% if show_back_button %}
+            <a href="#" class="button glow back" onclick="window.history.back()">Torna Indietro</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
 
         <div class="network-selector">
             <select id="networkSelect">
@@ -31,6 +34,9 @@
         </div>
     </div>
 
+    <footer class="footer">
+        <p>Creato da davide3011 | Versione 2.0 | Bitcoin P2WPKH Address Generator</p>
+    </footer>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

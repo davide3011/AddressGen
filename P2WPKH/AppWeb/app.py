@@ -4,7 +4,7 @@ from utils import generate_address
 app = Flask(__name__)
 
 # Modifica questa variabile per attivare o meno il back-button
-SHOW_BACK_BUTTON = False
+SHOW_BACK_BUTTON = True
 
 @app.route('/')
 def index():
@@ -16,4 +16,4 @@ def generate():
     return jsonify(generate_address(network))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0')
