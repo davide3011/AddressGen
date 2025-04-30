@@ -1,11 +1,7 @@
-#!/usr/bin/env python3
 """
 Generatore di indirizzi Bitcoin Taproot (P2TR)
 Genera indirizzi Taproot per diverse reti (mainnet, testnet, regtest)
 e salva il risultato in un file JSON.
-
-Dipendenze:
-    pip install coincurve
 """
 
 import os
