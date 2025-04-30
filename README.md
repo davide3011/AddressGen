@@ -20,6 +20,7 @@ Ogni modulo ha una cartella dedicata, contenente sia il codice che la documentaz
 | [P2PK](P2PK/)           | Generazione indirizzi Pay-to-Public-Key                        |
 | [P2PKH](P2PKH/)         | Generazione indirizzi P2PKH con codifica Base58                |
 | [P2WPKH](P2WPKH/)       | Generazione indirizzi Native SegWit (P2WPKH)                   |
+| [P2TR](P2TR/)           | Generazione indirizzi Native SegWit v1 (Taproot, P2TR)         |
 | [HDwallet](HDwallet/)   | Wallet gerarchici deterministici (BIP32/BIP44/BIP39)           |
 | [VanityAddress](VanityAddress)|Generazione di indirizzi personalizzati che contengono un prefisso |
 
