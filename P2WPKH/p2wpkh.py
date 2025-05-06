@@ -94,15 +94,16 @@ def generate_segwit_address(network: str = 'mainnet', compressed: bool = True) -
     
     # Calcola il checksum (primi 4 byte del doppio hash SHA256)
     checksum = hashlib.sha256(hashlib.sha256(extended_key).digest()).digest()[:4]
-    wif = base58.b58encode(extended_key + checksum).decode()  # Codifica in Base58
+    private_key_wif = base58.b58encode(extended_key + checksum).decode()  # Codifica in Base58
 
     # Restituisce un dizionario con tutte le informazioni generate
     return {
+        'network': network,                  # Rete utilizzata
+        'script_type': 'p2wpkh',            # Script type identifier
         'private_key_hex': private_key_hex,  # Chiave privata in formato esadecimale
-        'wif': wif,                          # Chiave privata in formato WIF
+        'private_key_wif': private_key_wif,  # Chiave privata in formato WIF
         'public_key_hex': pubkey_hex,        # Chiave pubblica in formato esadecimale
-        'address': address,                  # Indirizzo SegWit in formato Bech32
-        'network': network                   # Rete utilizzata
+        'address': address                   # Indirizzo SegWit in formato Bech32
     }
 
 def main():
@@ -120,8 +121,9 @@ def main():
         
         # Mostra i risultati all'utente
         print("\n--- Risultati ---")
+        print(f"Network: {result['network']}")
         print("Chiave privata (hex):", result['private_key_hex'])
-        print("Chiave privata (WIF):", result['wif'])
+        print("Chiave privata (WIF):", result['private_key_wif'])
         key_type = "compressa" if compressed else "non compressa"
         print(f"Chiave pubblica ({key_type}, hex):", result['public_key_hex'])
         print("Indirizzo segwit bech32:", result['address'])

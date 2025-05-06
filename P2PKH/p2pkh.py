@@ -143,11 +143,12 @@ def generate_legacy_address(network: str = 'mainnet', compressed: bool = True) -
     
     # Restituisce tutte le informazioni in un dizionario
     return {
-        'private_key_hex': private_key_hex,  # Chiave privata in formato esadecimale
-        'wif': encode_base58check(wif_payload),  # Chiave privata in formato WIF
-        'public_key_hex': pubkey_hex,  # Chiave pubblica in formato esadecimale
-        'address': encode_base58check(addr_payload),  # Indirizzo Bitcoin
-        'network': network  # Rete utilizzata
+        'network': network,                                 # Rete utilizzata
+        'script_type': 'p2pkh',                             # Type of Bitcoin script
+        'private_key_hex': private_key_hex,                 # Chiave privata in formato esadecimale
+        'private_key_wif': encode_base58check(wif_payload), # Chiave privata in formato WIF
+        'public_key_hex': pubkey_hex,                       # Chiave pubblica in formato esadecimale
+        'address': encode_base58check(addr_payload)         # Indirizzo Bitcoin
     }
 
 # Funzioni per l'interazione con l'utente
@@ -223,10 +224,11 @@ def main():
         
         # Mostra risultati
         print("\n--- Risultati ---")
-        print("Chiave privata (hex):", result['private_key_hex'])  # Chiave privata in esadecimale
-        print("Chiave privata (WIF):", result['wif'])  # Chiave privata in formato WIF
+        print(f"Network: {result['network']}")
+        print("Chiave privata (hex):", result['private_key_hex'])       # Chiave privata in esadecimale
+        print("Chiave privata (WIF):", result['private_key_wif'])       # Chiave privata in formato WIF
         print(f"Chiave pubblica ({('compressa' if compressed else 'non compressa')}, hex):", result['public_key_hex'])
-        print("Indirizzo Legacy P2PKH:", result['address'])  # L'indirizzo Bitcoin generato
+        print("Indirizzo Legacy P2PKH:", result['address'])             # L'indirizzo Bitcoin generato
         
         # Salva dati in JSON
         save_to_json(result, get_valid_filename())  # Salva tutti i dati in un file JSON

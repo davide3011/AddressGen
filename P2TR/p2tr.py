@@ -121,11 +121,12 @@ def generate_taproot_address_info(network: str) -> Dict[str, str]:
     addr = taproot_address(pub_xonly, network)
     wif = privkey_to_wif(priv, network)
     return {
+        'network': network,
+        'script_type': 'p2tr',
         'private_key_hex': priv.hex(),
         'private_key_wif': wif,
-        'public_key_xonly_hex': pub_xonly.hex(),
-        'address': addr,
-        'network': network
+        'public_key_hex': pub_xonly.hex(),
+        'address': addr
     }
 
 # ----------------------------------------
@@ -166,10 +167,10 @@ def main():
     network = get_valid_network()
     info = generate_taproot_address_info(network)
     print("\n--- Risultato ---")
-    print(f"Rete: {info['network']}")
+    print(f"Network: {info['network']}")
     print(f"Chiave privata (hex): {info['private_key_hex']}")
     print(f"Chiave privata (WIF): {info['private_key_wif']}")
-    print(f"Pubkey x-only (hex): {info['public_key_xonly_hex']}")
+    print(f"Chiave pubblica (hex): {info['public_key_hex']}")
     print(f"Indirizzo P2TR: {info['address']}")
     fname = get_valid_filename()
     save_to_json(info, fname)
