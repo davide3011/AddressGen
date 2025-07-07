@@ -1,9 +1,9 @@
-from PyQt5.QtWidgets import (
+from PySide6.QtWidgets import (
     QMainWindow, QVBoxLayout, QHBoxLayout, 
     QWidget, QLabel, QPushButton, QComboBox, QTextEdit
 )
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont
 
 # Classe principale per l'interfaccia utente
 class BitcoinGeneratorUI(QMainWindow):

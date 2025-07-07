@@ -1,11 +1,11 @@
 import json
-from PyQt5.QtCore import QThread, pyqtSignal
-from PyQt5.QtWidgets import QMessageBox, QFileDialog
+from PySide6.QtCore import QThread, Signal
+from PySide6.QtWidgets import QMessageBox, QFileDialog
 from utils import generate_address
 
 # Thread separato per evitare il blocco dell'interfaccia durante la generazione
 class AddressGeneratorThread(QThread):
-    address_generated = pyqtSignal(dict)
+    address_generated = Signal(dict)
     
     def __init__(self, network):
         super().__init__()

@@ -14,7 +14,7 @@ Un'applicazione desktop moderna e sicura per la generazione di indirizzi Bitcoin
 ## Requisiti
 
 - Python 3.8 o superiore
-- PyQt5
+- PySide6
 - Librerie crittografiche (ecdsa, base58)
 
 ## Installazione
@@ -52,13 +52,13 @@ pip install -r requirements.txt
 python app.py
 ```
 
-### Installazione su Debian 12
+### Installazione su Linux
 
-Per Debian 12, segui questi passaggi specifici:
+Per sistemi Linux, segui questi passaggi:
 
 ```bash
-# Crea un ambiente virtuale con accesso ai pacchetti di sistema
-python3 -m venv --system-site-packages venv
+# Crea un ambiente virtuale
+python3 -m venv venv
 
 # Attiva l'ambiente virtuale
 source venv/bin/activate
@@ -66,17 +66,9 @@ source venv/bin/activate
 # Installa le dipendenze
 pip install -r requirements.txt
 
-# Verifica l'installazione di PyQt5
-python - <<EOF
-import PyQt5
-from PyQt5 import QtCore
-EOF
-
 # Esegui l'applicazione
 python app.py
 ```
-
-**Nota per Debian 12**: L'opzione `--system-site-packages` è necessaria per accedere ai pacchetti PyQt5 installati a livello di sistema.
 
 ## Utilizzo
 
@@ -114,7 +106,7 @@ app_test/
 
 - **BitcoinAddressGenerator**: Classe principale che coordina UI e logica
 - **BitcoinController**: Gestisce la logica di business e gli eventi
-- **BitcoinGeneratorUI**: Interfaccia utente con PyQt5
+- **BitcoinGeneratorUI**: Interfaccia utente con PySide6
 - **ThemeManager**: Gestione temi dinamici per le reti
 - **Utils**: Funzioni crittografiche per Bitcoin (ECDSA, Base58, etc.)
 
@@ -137,7 +129,7 @@ app_test/
 ## Temi
 
 L'applicazione cambia automaticamente tema in base alla rete selezionata:
-- **Mainnet**: Tema arancione/oro
+- **Mainnet**: Tema arancione
 - **Testnet**: Tema verde
 - **Regtest**: Tema blu
 
@@ -185,7 +177,7 @@ Questo software è fornito "così com'è" senza garanzie di alcun tipo. L'autore
 
 - [Bitcoin Developer Guide](https://developer.bitcoin.org/)
 - [BIP 32 - Hierarchical Deterministic Wallets](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)
-- [PyQt5 Documentation](https://doc.qt.io/qtforpython/)
+- [PySide6 Documentation](https://doc.qt.io/qtforpython/)
 - [ECDSA Library](https://github.com/tlsfuzzer/python-ecdsa)
 
 ---
